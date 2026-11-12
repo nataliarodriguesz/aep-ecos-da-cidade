@@ -1,0 +1,11 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Arquivos compilados
+out/
+target/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
