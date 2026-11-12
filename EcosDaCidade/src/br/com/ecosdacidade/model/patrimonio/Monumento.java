@@ -5,23 +5,21 @@ import br.com.ecosdacidade.model.EstadoConservacao;
 import br.com.ecosdacidade.model.usuario.Morador;
 
 public class Monumento extends Patrimonio {
-    private String autor;
-    private String material;
+    private final String autor;
+    private final String material;
 
-    public Monumento(Morador moradorResponsavel,
-                     String nome, String descricao,
-                     EstadoConservacao estadoConservacao,
-                     Endereco endereco,
-                     String autor,
-                     String material
-                     ) {
-
+    public Monumento(Morador moradorResponsavel, String nome, String descricao,
+                     EstadoConservacao estadoConservacao, Endereco endereco,
+                     String autor, String material) {
         super(moradorResponsavel, nome, descricao, estadoConservacao, endereco);
+
+        if (material == null || material.isBlank()) {
+            throw new IllegalArgumentException("Material é obrigatório");
+        }
 
         this.autor = autor;
         this.material = material;
     }
-
 
     @Override
     protected String detalhesEspecificos() {

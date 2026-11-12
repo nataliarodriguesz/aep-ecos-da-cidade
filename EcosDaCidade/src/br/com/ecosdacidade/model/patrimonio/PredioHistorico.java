@@ -4,49 +4,28 @@ import br.com.ecosdacidade.model.Endereco;
 import br.com.ecosdacidade.model.EstadoConservacao;
 import br.com.ecosdacidade.model.usuario.Morador;
 
+import java.time.Year;
+
 public class PredioHistorico extends Patrimonio {
-    private int anoConstrucao;
-    private String estiloArquitetonico;
+    private final int anoConstrucao;
+    private final String estiloArquitetonico;
 
-    public PredioHistorico(Morador moradorResponsavel,
-                           String nome, String descricao,
-                           EstadoConservacao estadoConservacao,
-                           Endereco endereco,
-                           int anoConstrucao,
-                           String estiloArquitetonico) {
-
+    public PredioHistorico(Morador moradorResponsavel, String nome, String descricao,
+                           EstadoConservacao estadoConservacao, Endereco endereco,
+                           int anoConstrucao, String estiloArquitetonico) {
         super(moradorResponsavel, nome, descricao, estadoConservacao, endereco);
+
+        validarAno(anoConstrucao);
+        if (estiloArquitetonico == null || estiloArquitetonico.isBlank()) {
+            throw new IllegalArgumentException("Estilo arquitetônico é obrigatório");
+        }
 
         this.anoConstrucao = anoConstrucao;
         this.estiloArquitetonico = estiloArquitetonico;
     }
 
     public int calcularIdade() {
-        int anoAtual = java.time.Year.now().getValue();
-        return  anoAtual - anoConstrucao;
-    }
-
-    @Override
-    public String gerarDescricao() {
-        return """
-               -------------------------------------------
-               ID: %d | %s      
-               -------------------------------------------
-               Categoria: %s
-               Ano de construção: %d
-               Estilo arquitetônico: %s
-               Conservação: %s
-               Endereco: %s
-               -------------------------------------------"""
-               .formatted(
-                  id,
-                  nome,
-                  getClass().getSimpleName(),
-                  anoConstrucao,
-                  estiloArquitetonico,
-                  estadoConservacao,
-                  endereco.toString()
-               );
+        return Year.now().getValue() - anoConstrucao;
     }
 
     @Override

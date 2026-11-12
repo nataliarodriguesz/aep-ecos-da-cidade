@@ -67,5 +67,9 @@ public class Denuncia {
         if (status != StatusDenuncia.PUBLICADA) throw new IllegalStateException("Denúncia não está publicada");
         status = StatusDenuncia.REMOVIDA;
     }
+
+    public void marcarComoRemovida() {
+        status = StatusDenuncia.REMOVIDA;
+    }
 }
 

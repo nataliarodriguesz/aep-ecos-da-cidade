@@ -4,26 +4,28 @@ import br.com.ecosdacidade.model.Endereco;
 import br.com.ecosdacidade.model.EstadoConservacao;
 import br.com.ecosdacidade.model.usuario.Morador;
 
+import java.time.Year;
+
 public class ComercioTradicional extends Patrimonio {
-    private String ramoAtividade;
-    private int anoFundacao;
+    private final String ramoAtividade;
+    private final int anoFundacao;
 
-    public ComercioTradicional(Morador moradorResponsavel,
-                               String nome, String descricao,
-                               EstadoConservacao estadoConservacao,
-                               Endereco endereco,
-                               String ramoAtividade,
-                               int anoFundacao) {
-
+    public ComercioTradicional(Morador moradorResponsavel, String nome, String descricao,
+                               EstadoConservacao estadoConservacao, Endereco endereco,
+                               String ramoAtividade, int anoFundacao) {
         super(moradorResponsavel, nome, descricao, estadoConservacao, endereco);
+
+        if (ramoAtividade == null || ramoAtividade.isBlank()) {
+            throw new IllegalArgumentException("Ramo de atividade é obrigatório");
+        }
+        validarAno(anoFundacao);
 
         this.ramoAtividade = ramoAtividade;
         this.anoFundacao = anoFundacao;
     }
 
     public int calcularTempoFuncionamento() {
-        int anoAtual = java.time.Year.now().getValue();
-        return anoAtual - anoFundacao;
+        return Year.now().getValue() - anoFundacao;
     }
 
     @Override

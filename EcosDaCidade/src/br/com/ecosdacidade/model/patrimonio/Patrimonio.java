@@ -2,16 +2,22 @@ package br.com.ecosdacidade.model.patrimonio;
 
 import br.com.ecosdacidade.model.*;
 import br.com.ecosdacidade.model.denuncia.Denuncia;
+import br.com.ecosdacidade.model.denuncia.StatusDenuncia;
+import br.com.ecosdacidade.model.relato.Relato;
+import br.com.ecosdacidade.model.relato.StatusRelato;
 import br.com.ecosdacidade.model.usuario.Morador;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class Patrimonio {
+    private static int proximoId = 1;   // TEMPORÁRIO: apague quando usar banco
+
     private   Morador moradorResponsavel;
-    protected int id;
+    private final int id;
     protected String nome;
     protected String descricao;
     protected LocalDate dataCadastro;
@@ -22,22 +28,25 @@ public abstract class Patrimonio {
     private List<Relato> relatos = new ArrayList<>();
     private List<Denuncia> denuncias = new ArrayList<>();
 
-    public Patrimonio(Morador moradorResponsavel,
-                      String nome, String descricao,
-                      EstadoConservacao estadoConservacao,
-                      Endereco endereco) {
+    public Patrimonio(Morador moradorResponsavel, String nome, String descricao,
+                      EstadoConservacao estadoConservacao, Endereco endereco) {
 
-        if (moradorResponsavel == null) throw new IllegalArgumentException("Morador responsável é obrigatório");
+        Objects.requireNonNull(moradorResponsavel, "Morador responsável é obrigatório");
+        Objects.requireNonNull(estadoConservacao, "Estado de conservação é obrigatório");
+        Objects.requireNonNull(endereco, "Endereço é obrigatório");
+        if (nome == null || nome.isBlank()) {
+            throw new IllegalArgumentException("Nome é obrigatório");
+        }
+
+        this.id = proximoId++;
         this.moradorResponsavel = moradorResponsavel;
-
         this.nome = nome;
         this.descricao = descricao;
-        this.dataCadastro = LocalDate.now();
-        this.endereco = endereco;
         this.estadoConservacao = estadoConservacao;
+        this.endereco = endereco;
+        this.dataCadastro = LocalDate.now();
         this.statusAprovacao = StatusAprovacao.PENDENTE;
     }
-
     // Getters e Setters
     public int getId() {
         return id;
@@ -79,6 +88,18 @@ public abstract class Patrimonio {
         return denuncias;
     }
 
+    public List<Relato> getRelatosPublicados() {
+        return relatos.stream()
+                .filter(r -> r.getStatus() == StatusRelato.PUBLICADO)
+                .toList();
+    }
+
+    public List<Denuncia> getDenunciasPublicadas() {
+        return denuncias.stream()
+                .filter(d -> d.getStatus() == StatusDenuncia.PUBLICADA)
+                .toList();
+    }
+
     // Métodos Gerais
     public  void alterarEstadoConservacao(EstadoConservacao novoEstado) {
         this.estadoConservacao = novoEstado;
@@ -114,6 +135,13 @@ public abstract class Patrimonio {
             throw new IllegalStateException("Só é possível remover patrimônio aprovado");
         }
         statusAprovacao = StatusAprovacao.REMOVIDO;
+
+        for (Relato relato : relatos) {
+            relato.marcarComoRemovido();
+        }
+        for (Denuncia denuncia : denuncias) {
+            denuncia.marcarComoRemovida();
+        }
     }
 
     public  boolean estaAprovado() {

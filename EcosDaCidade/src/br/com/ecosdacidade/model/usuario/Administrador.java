@@ -1,15 +1,16 @@
 package br.com.ecosdacidade.model.usuario;
 
-import br.com.ecosdacidade.model.Relato;
-import br.com.ecosdacidade.model.StatusAprovacao;
-import br.com.ecosdacidade.model.StatusRelato;
+import br.com.ecosdacidade.model.relato.Relato;
 import br.com.ecosdacidade.model.denuncia.Denuncia;
-import br.com.ecosdacidade.model.denuncia.StatusDenuncia;
 import br.com.ecosdacidade.model.patrimonio.Patrimonio;
 
 public class Administrador extends Usuario {
     private static final int PONTOS_PATRIMONIO_APROVADO = 30;
     private static final int PONTOS_DENUNCIA_APROVADA = 15;
+
+    public Administrador(String nome, String email, String senha) {
+        super(nome, email, senha);
+    }
 
     public void aprovarPatrimonio(Patrimonio p) {
         p.aprovar();
