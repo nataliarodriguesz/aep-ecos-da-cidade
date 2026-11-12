@@ -9,3 +9,14 @@ target/
 # Sistema operacional
 .DS_Store
 Thumbs.db
+
+# Arquivos compilados do Java
+*.class
+
+# Arquivos locais com credenciais
+.env
+**/.env
+
+# Testes temporarios de conexao
+/EcosDaCidade/TesteDriver.java
+/EcosDaCidade/src/br/com/ecosdacidade/TesteConexao.java
