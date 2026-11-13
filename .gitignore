@@ -22,4 +22,5 @@ Thumbs.db
 /EcosDaCidade/src/br/com/ecosdacidade/TesteConexao.java
 
 config.properties
+**/config.properties
 .vscode/
