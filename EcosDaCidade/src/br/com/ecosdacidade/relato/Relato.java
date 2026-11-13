@@ -1,4 +1,4 @@
-package br.com.ecosdacidade.model.relato;
+package br.com.ecosdacidade.relato;
 
 import br.com.ecosdacidade.model.patrimonio.Patrimonio;
 import br.com.ecosdacidade.model.usuario.Morador;

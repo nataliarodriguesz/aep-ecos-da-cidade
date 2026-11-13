@@ -19,7 +19,6 @@ public class Principal {
     private final SistemaPatrimonio patrimonios = new SistemaPatrimonio();
 
     public void iniciar() {
-        dadosDeTeste();
         boolean rodando = true;
 
         while (rodando) {
@@ -124,16 +123,5 @@ public class Principal {
             Tela.erro(e.getMessage());
         }
         entrada.aguardarEnter();
-    }
-
-    // TEMPORÁRIO (teste da Etapa 3): apague na Etapa 4
-    private void dadosDeTeste() {
-        Morador maria = usuarios.cadastrarMorador("Maria Teste", "maria@x.com", "123456");
-        Patrimonio praca = new PracaHistorica(maria, "Praça da Matriz", "Praça central da cidade",
-                EstadoConservacao.BOM,
-                new Endereco("Av. Principal", 100, "Centro", "Cidade Exemplo", "PR"),
-                5000);
-        patrimonios.cadastrarPatrimonio(praca);
-        praca.aprovar();
     }
 }

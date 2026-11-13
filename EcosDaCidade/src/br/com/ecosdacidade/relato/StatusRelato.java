@@ -1,4 +1,4 @@
-package br.com.ecosdacidade.model.relato;
+package br.com.ecosdacidade.relato;
 
 public enum StatusRelato {
     PUBLICADO,

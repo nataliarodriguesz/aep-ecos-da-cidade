@@ -1,8 +1,8 @@
 package br.com.ecosdacidade.view;
 
-import br.com.ecosdacidade.model.relato.Relato;
 import br.com.ecosdacidade.model.denuncia.Denuncia;
 import br.com.ecosdacidade.model.patrimonio.Patrimonio;
+import br.com.ecosdacidade.relato.Relato;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;

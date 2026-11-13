@@ -1,8 +1,8 @@
 package br.com.ecosdacidade.model.usuario;
 
-import br.com.ecosdacidade.model.relato.Relato;
 import br.com.ecosdacidade.model.denuncia.Denuncia;
 import br.com.ecosdacidade.model.patrimonio.Patrimonio;
+import br.com.ecosdacidade.relato.Relato;
 
 public class Administrador extends Usuario {
     private static final int PONTOS_PATRIMONIO_APROVADO = 30;

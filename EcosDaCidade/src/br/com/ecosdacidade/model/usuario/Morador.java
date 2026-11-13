@@ -1,11 +1,11 @@
 package br.com.ecosdacidade.model.usuario;
 
-import br.com.ecosdacidade.model.relato.Relato;
-import br.com.ecosdacidade.model.relato.StatusRelato;
 import br.com.ecosdacidade.model.denuncia.Denuncia;
 import br.com.ecosdacidade.model.denuncia.StatusDenuncia;
 import br.com.ecosdacidade.model.denuncia.TipoDenuncia;
 import br.com.ecosdacidade.model.patrimonio.Patrimonio;
+import br.com.ecosdacidade.relato.Relato;
+import br.com.ecosdacidade.relato.StatusRelato;
 
 import java.util.ArrayList;
 import java.util.Collections;
